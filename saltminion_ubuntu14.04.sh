@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if test $# -ne 1;then
+if test $# -ne 3;then
 	echo 
 	echo
 	echo "	This script for installing saltminion on ubuntu14.04"
 	echo "	Usage:"
-	echo " 	$0 [hostname]"
+	echo " 	$0 [saltstack_server_ip]  [server_port]  [hostname]"
 	echo
 	exit
 fi
@@ -22,11 +22,11 @@ if test $ROLE != "root";then
 	exit
 fi
 
-wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
-echo "deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main" > /etc/apt/sources.list.d/saltstack.list
-apt-get update
-apt-get update
-apt-get install -y salt-minion
+wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add - &>/dev/null
+echo "deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main" > /etc/apt/sources.list.d/saltstack.list &>/dev/null
+apt-get update &>/dev/null
+apt-get update &>/dev/null
+apt-get install -y salt-minion &>/dev/null
 
 if test $? -ne 0;then 
 	echo 
@@ -37,9 +37,14 @@ if test $? -ne 0;then
 	exit
 fi
 
-echo "master: 123.57.30.231"    >> /etc/salt/minion
-echo "id: $1" 			>> /etc/salt/minion
-echo "master_port: 8899" 	>> /etc/salt/minion
+echo "master: $1"    >> /etc/salt/minion
+echo "id: $3" 			>> /etc/salt/minion
+echo "master_port: $2" 	>> /etc/salt/minion
 
 
 service salt-minion restart
+if test $? -eq 0;then
+	echo 'Success started salt-minion!!!'
+else
+	echo 'Failed to start salt_minion'
+fi
