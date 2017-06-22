@@ -13,13 +13,13 @@
 #init 
 DIR=`pwd`
 # Usage information
-if [ -z $1 ] || [ $# != "1" ];then
-  echo "Usage: $0 [ip list file]"
+if [ -z $1 ] || [ $# != "3" ];then
+  echo "Usage: $0 [ip list file] [salt-master ip] [salt-master port]"
 exit
 fi
 
-MASTER=$1
-PORT=$2
+MASTER=$2
+PORT=$3
 
 
 #read iplist file and output salt roster file
