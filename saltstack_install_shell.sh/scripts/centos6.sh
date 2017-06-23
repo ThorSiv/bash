@@ -39,7 +39,9 @@ echo $?
 
 echo 'start salt-minionon'
 service salt-minion restart &> /dev/null
-
+service salt-minion restart &> /dev/null
+service salt-minion restart &> /dev/null
+service salt-minion restart &> /dev/null
 
 
 if test $? -eq 0;then

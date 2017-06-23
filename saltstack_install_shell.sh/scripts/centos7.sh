@@ -37,7 +37,9 @@ echo $?
 
 echo 'start salt-minionon'
 systemctl restart salt-minion&> /dev/null
-
+systemctl restart salt-minion&> /dev/null
+systemctl restart salt-minion&> /dev/null
+systemctl restart salt-minion&> /dev/null
 
 
 if test $? -eq 0;then

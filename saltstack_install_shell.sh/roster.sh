@@ -33,3 +33,10 @@ for i in `cat $1`;do
   salt-ssh -i --roster-file=roster $HOST cp.get_file $DIR/scripts/${SYSTEM}.sh /tmp 
   salt-ssh -i --roster-file=roster $HOST cmd.run "bash /tmp/$SYSTEM.sh $MASTER $PORT $HOST" &> /dev/null &
 done
+
+
+
+echo 'Done! Waite for the end. 5 minutes or 10 minutes'
+echo 'you can run command :'
+echo '--------( salt-ssh --roster-file=roster '*' cmd.run 'ps -ef|grep SYSTEM.sh'
+echo 'to check whether jobs finished.'

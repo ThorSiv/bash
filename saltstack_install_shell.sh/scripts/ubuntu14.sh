@@ -42,3 +42,6 @@ else
 fi
 
 service salt-minion restart
+service salt-minion restart
+service salt-minion restart
+service salt-minion restart
