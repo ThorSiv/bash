@@ -31,5 +31,5 @@ for i in `cat $1`;do
   echo "  host:  $IP" >> roster
   echo "  user:  root" >> roster
   salt-ssh -i --roster-file=roster $HOST cp.get_file $DIR/scripts/${SYSTEM}.sh /tmp 
-  salt-ssh -i --roster-file=roster $HOST cmd.run "/tmp/$SYSTEM.sh $MASTER $PORT $HOST" &> /dev/null &
+  salt-ssh -i --roster-file=roster $HOST cmd.run "bash /tmp/$SYSTEM.sh $MASTER $PORT $HOST" &> /dev/null &
 done
