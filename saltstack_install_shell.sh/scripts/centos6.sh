@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ -e /etc/init.d/salt-minion ];then
+	echo 'salt-minion installed,exit...'
+	exit
+fi 
 
 if test $# -ne 3;then 
 	echo

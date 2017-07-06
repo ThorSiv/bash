@@ -1,5 +1,8 @@
 #!/bin/bash
-
+if [ -e /etc/init.d/zabbix_agent ];then
+	echo 'zabbix-agent installed,exit..'
+	exit
+fi
 if test $# -ne 1;then
 	echo 
 	echo

@@ -1,5 +1,8 @@
 #!/bin/bash
-
+if [ -e /etc/init.d/zabbix_agent ];then
+	echo 'zabbix-agent installed,exit..'
+	exit
+fi
 ROLE=`whoami`
 
 if test $ROLE != "root";then
