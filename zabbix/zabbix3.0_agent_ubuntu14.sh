@@ -23,11 +23,11 @@ if test $# -ne 1;then
 	exit
 fi
 
-wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb
-dpkg -i zabbix-release_3.0-1+trusty_all.deb
-apt-get update
-apt-get update
-apt-get install zabbix-agent
+wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb &>/dev/null
+dpkg -i zabbix-release_3.0-1+trusty_all.deb &>/dev/null
+apt-get update &>/dev/null
+apt-get update &>/dev/null 
+apt-get install zabbix-agent -y &>/dev/null
 
 if test $? -eq 0;then 
 	mv /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.default
