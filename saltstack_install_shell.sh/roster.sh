@@ -13,14 +13,14 @@
 #init 
 DIR=`pwd`
 # Usage information
-if [ -z $1 ] || [ $# != "3" ];then
-  echo "Usage: $0 [ip list file] [salt-master ip] [salt-master port]"
+if [ -z $1 ] || [ $# != "4" ];then
+  echo "Usage: $0 [ip list file] [salt-master ip] [salt-master port] [zabbix-server ip]"
 exit
 fi
 
 MASTER=$2
 PORT=$3
-
+ZABBIX_SERVER=$4
 
 #read iplist file and output salt roster file
 for i in `cat $1`;do
@@ -30,7 +30,9 @@ for i in `cat $1`;do
   echo "$HOST:" >> roster
   echo "  host:  $IP" >> roster
   echo "  user:  root" >> roster
+  salt-ssh -i --roster-file=roster $HOST cp.get_file $DIR/../zabbix/zabbix3.0_agent_${SYSTEM}.sh /tmp
   salt-ssh -i --roster-file=roster $HOST cp.get_file $DIR/scripts/${SYSTEM}.sh /tmp 
+  salt-ssh -i --roster-file=roster $HOST cmd.run "bash /tmp/zabbix3.0_agent_${SYSTEM}.sh $ZABBIX_SERVER $HOST" &> /dev/null &
   salt-ssh -i --roster-file=roster $HOST cmd.run "bash /tmp/$SYSTEM.sh $MASTER $PORT $HOST" &> /dev/null &
 done
 
